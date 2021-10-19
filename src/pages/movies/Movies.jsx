@@ -18,34 +18,9 @@ const Movies = () => {
 
     const getMoviesData = async () => {
         const {data} = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreForURL}`);
-        setContent(data.results);
+        const result = rating? (data.results.filter(movie => movie.vote_average >= (rating * 2) - 2 && movie.vote_average <= rating * 2)) : (data.results);
+        setContent(result);
         setNumOfPages(data.total_pages);
-
-        if(rating === 1){
-            const result = data.results.filter(movie => movie.vote_average >= 0 && movie.vote_average <= 2);
-            setContent(result);
-            setNumOfPages(result.total_pages);
-        };
-        if(rating === 2){
-            const result = data.results.filter(movie => movie.vote_average >= 2 && movie.vote_average <= 4);
-            setContent(result);
-            setNumOfPages(result.total_pages);
-        };
-        if(rating === 3){
-            const result = data.results.filter(movie => movie.vote_average >= 4 && movie.vote_average <= 6);
-            setContent(result);
-            setNumOfPages(result.total_pages);
-        };
-        if(rating === 4){
-            const result = data.results.filter(movie => movie.vote_average >= 6 && movie.vote_average <= 8);
-            setContent(result);
-            setNumOfPages(result.total_pages);
-        };
-        if(rating === 5){
-            const result = data.results.filter(movie => movie.vote_average >= 8 && movie.vote_average <= 10);
-            setContent(result);
-            setNumOfPages(result.total_pages);
-        };
     }
 
     useEffect(() => {

@@ -5,7 +5,7 @@ export default function StarsRating({rating, setRating}) {
 
     const handleRating = (rate) => {
         setRating(rate);
-        if(rating === rate) setRating(0);
+        if(rating === rate) setRating(null);
     };
 
     return (
